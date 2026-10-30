@@ -28,6 +28,23 @@ def inside(head):
     """Return True if head inside boundaries."""
     return -200 < head.x < 190 and -200 < head.y < 190
 
+def fmove():
+    """
+A la posición de la comida le añade un valor al azar entre menos diez y diez en sus ejes x e y,
+este  ciclo se repite cada 500 milisegundos. También verifica que la comida se encuentre dentro
+de la pantalla, y si no, la devuelve a su posición inicial.
+    """
+    food.x += randrange(-10, 10, 10)
+    food.y += randrange(-10, 10, 10)
+    ontimer(fmove, 500)
+    if not inside(food):
+        food.x = 9
+        food.y = 9
+
+def inside(food):
+    "Regresa True si la comida aún se encuentra dentro de la pantalla"
+    return -200 < food.x < 190 and -200 < food.y < 190
+
 
 def move():
     """Move snake forward one segment."""
@@ -67,4 +84,5 @@ onkey(lambda: change(-10, 0), 'Left')
 onkey(lambda: change(0, 10), 'Up')
 onkey(lambda: change(0, -10), 'Down')
 move()
+fmove()
 done()
